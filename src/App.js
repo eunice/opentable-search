@@ -3,7 +3,7 @@ import algoliasearch from 'algoliasearch';
 import algoliasearchHelper from 'algoliasearch-helper';
 import reactAlgoliaSearchHelper, { Provider, connect } from 'react-algoliasearch-helper';
 
-import { Col } from 'react-bootstrap';
+import { Col, Grid, Row } from 'react-bootstrap';
 
 // import logo from './logo.svg';
 import './App.css';
@@ -27,7 +27,7 @@ const helper = algoliasearchHelper(
   }
 );
 
-console.log(helper)
+// console.log(helper)
 
 helper.search();
 
@@ -35,17 +35,21 @@ class App extends Component {
   render() {
     return (
       <Provider helper={helper}>
-          <div className="app">
-              <SearchBox />
-              <Col xs={4} md={3}>
-                <FoodTypes />
-                <Ratings />
-                <PaymentOptions />
-              </Col>
-              <Col xs={8} md={9}>
-                <Hits />
-                <Pagination />
-              </Col>
+          <div>
+            <Grid>
+                <Row>
+                  <Col xs={2} md={3}>    
+                    <FoodTypes />
+                    <Ratings />
+                    <PaymentOptions />
+                  </Col>
+                  <Col xs={10} md={9}>
+                    <SearchBox />
+                    <Hits />
+                    <Pagination />
+                  </Col>
+                </Row>
+            </Grid>
           </div>
       </Provider>
     );
