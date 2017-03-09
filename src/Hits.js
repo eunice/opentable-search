@@ -3,10 +3,6 @@ import reactAlgoliaSearchHelper, { Provider, connect } from 'react-algoliasearch
 
 import { Col, Grid, Row, Image } from 'react-bootstrap';
 
-const hitStyle = {
-  
-}
-
 const getHighlighted = s => ({__html: s});
 
 // const Hit = ({
@@ -17,6 +13,20 @@ const getHighlighted = s => ({__html: s});
 //   }
 // }) => <div dangerouslySetInnerHTML={getHighlighted(name)}/>;
 
+
+const imageStyle = {
+  width: '100%',
+  height: '90%'
+}
+
+const ratingStyle = {
+  color: '#FFC08C'
+}
+
+const restaurantContainerStyle = {
+  margin: '5px'
+}
+
 const Hit = ({
   name: name,
   neighborhood: neighborhood,
@@ -26,21 +36,21 @@ const Hit = ({
   price_range: price_range,
   image_url: image_url
 }) => <Grid>
-        <Row>
-          <Col xs={3} md={3}>
-            <Image src={image_url} rounded/>
+        <Row className='restaurantContainer' style={restaurantContainerStyle}>
+          <Col xs={3} md={2}>
+            <Image style={imageStyle} className='restaurantImage' src={image_url} rounded/>
           </Col>
-          <Col xs={9} md={9}>
-            <div className='restaurantName'>{name}</div>
-            <div className='restaurantRating'>
-              <span>{stars_count}</span>
+          <Col xs={9} md={10}>
+            <p className='restaurantName'>{name}</p>
+            <p className='restaurantRating'>
+              <span style={ratingStyle}>{stars_count}</span>
               <span>({reviews_count} reviews)</span>
-            </div>
-            <div className='restaurantDetail'>
+            </p>
+            <p className='restaurantDetail'>
               <span>{food_type} | </span>
               <span>{neighborhood} | </span>
               <span className='restaurantPriceRange'>{price_range} </span>
-            </div>
+            </p>
           </Col>
         </Row>
       </Grid>;
@@ -57,7 +67,7 @@ const Results = ({results}) => results &&
 <div className="results">
   {results.hits.map(
     function(hit) {
-      {/*console.log('hit',hit)*/}
+      console.log(results)
         return <Hit key={hit.objectID} {...hit} />
     })
   }

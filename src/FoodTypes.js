@@ -31,7 +31,8 @@ const FoodTypes = connect(
 )(
   ({foodTypes, helper}) => {
     console.log(foodTypes)
-return (<ul className="foodTypes">
+return (<div><div>Cuisine/Food Type</div>
+  <ul className="foodTypes">
   {foodTypes.map(
     foodType =>
       <FoodType
@@ -40,7 +41,7 @@ return (<ul className="foodTypes">
         handleClick={e => helper.toggleRefine('food_type', foodType.name).search()}
       />
   )}
-</ul>)
+</ul></div>)
   }
 );
 

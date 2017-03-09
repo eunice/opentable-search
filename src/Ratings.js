@@ -31,7 +31,8 @@ const Ratings = connect(
 )(
   ({ratings, helper}) => {
     console.log(ratings)
-return (<ul className="ratings">
+return (<div><div>Rating</div>
+  <ul className="ratings">
   {ratings.map(
     rating =>
       <Rating
@@ -40,7 +41,7 @@ return (<ul className="ratings">
         handleClick={e => helper.toggleRefine('stars_count', rating.name).search()}
       />
   )}
-</ul>)
+</ul></div>)
   }
 );
 

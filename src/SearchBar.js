@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
 import reactAlgoliaSearchHelper, { Provider, connect } from 'react-algoliasearch-helper';
 
+const searchContainerStyle = {
+  backgroundColor: 'blue'
+}
+
+const searchStyle = {
+  width: '100%',
+  padding: '0.5em 1em'
+}
+
 const SearchBox = connect()(
   ({helper}) =>
-  <input
-    className="search-box"
-    placeholder="Search here"
-    onChange={e => helper.setQuery(e.target.value).search()}
-  />
+  <div style={searchContainerStyle}>
+    <input
+      style={searchStyle}
+      placeholder="Search for Restaurants by Name, Cuisine, Location"
+      onChange={e => helper.setQuery(e.target.value).search()}
+      />
+  </div>
 );
 
 /*class SearchBar extends Component {

@@ -28,32 +28,65 @@ const helper = algoliasearchHelper(
 );
 
 // console.log(helper)
-
+const main = {
+  height: 'inherit'
+}
 helper.search();
 
 class App extends Component {
   render() {
     return (
       <Provider helper={helper}>
-          <div>
-            <Grid>
-                <Row>
-                  <Col xs={2} md={3}>    
-                    <FoodTypes />
-                    <Ratings />
-                    <PaymentOptions />
-                  </Col>
-                  <Col xs={10} md={9}>
-                    <SearchBox />
-                    <Hits />
-                    <Pagination />
-                  </Col>
-                </Row>
-            </Grid>
+          <div style={searchContainerStyle}>
+              <div>
+                <SearchBox style={searchBarStyles}/>
+              </div>
+              <div style={main}>
+                <Col xs={2} md={3} style={sidebar}>
+                  <FoodTypes />
+                  <Ratings />
+                  <PaymentOptions />
+                </Col>
+                <Col xs={10} md={9} style={mainContent}>
+                  <Hits />
+                  <Pagination />
+                </Col>
+              </div>
           </div>
       </Provider>
     );
   }
 }
+
+const searchContainerStyle = {
+  width: '80%',
+  height: '500px',
+  overflow: 'hidden',
+  position: 'absolute',
+  top: '0',
+  bottom: '0',
+  left: '0',
+  right: '0',
+  margin: 'auto'
+}
+
+const sidebar = {
+  height: 'inherit',
+  overflow: 'scroll',
+  borderRight: '1px solid',
+  borderColor: '#E7E7E7'
+}
+
+const mainContent = {
+  height: 'inherit',
+  overflow: 'scroll'
+}
+
+const searchBarStyles = {
+  display: 'block',
+  width: '100%',
+  border: '0'
+}
+
 
 export default App;
