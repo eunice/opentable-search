@@ -5,9 +5,9 @@ import { Col, Grid, Row, Image, FormControl } from 'react-bootstrap';
 
 const searchContainerStyle = {
   position: 'relative',
-  padding: 15,
+  padding: 18,
   margin: '0 auto',
-  width: 'auto', 
+  width: 'auto',
   height: 'auto'
 }
 

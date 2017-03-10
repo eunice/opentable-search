@@ -60,7 +60,7 @@ class App extends Component {
 
 const searchContainerStyle = {
   width: '80%',
-  height: '500px',
+  height: '580px',
   overflow: 'hidden',
   position: 'absolute',
   top: '0',
@@ -86,8 +86,7 @@ const mainContent = {
 const searchBarStyles = {
   clear: 'both',
   display: 'block',
-  backgroundColor: '#3270d3',
-  height: '70px',
+  backgroundColor: '#1C688E',
   width: '100%',
   height: 'auto',
   position: 'relative'
