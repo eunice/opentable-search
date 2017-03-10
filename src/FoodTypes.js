@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import reactAlgoliaSearchHelper, { Provider, connect } from 'react-algoliasearch-helper';
 
-const FoodType = ({
+import { Col, Grid, Row, ListGroup, ListGroupItem } from 'react-bootstrap';
+
+/*const FoodType = ({
   name,
   count,
   isRefined,
@@ -18,7 +20,18 @@ const FoodType = ({
     {name}{' '}
     <span className="badge">{count}</span>
   </label>
-</li>;
+</li>;*/
+
+const FoodType = ({
+  name,
+  count,
+  isRefined,
+  handleClick
+}) =>
+  <div onClick={handleClick}>
+    {name}{' '}
+    <span >{count}</span>
+  </div>;
 
 
 // connect(state: {}))
@@ -31,7 +44,7 @@ const FoodTypes = connect(
 )(
   ({foodTypes, helper}) => {
     console.log(foodTypes)
-return (<div><div>Cuisine/Food Type</div>
+return (<div><div><b>Cuisine/Food Type</b></div>
   <ul className="foodTypes">
   {foodTypes.map(
     foodType =>
@@ -44,15 +57,5 @@ return (<div><div>Cuisine/Food Type</div>
 </ul></div>)
   }
 );
-
-/*class SearchBar extends Component {
-  render() {
-    return (
-      <div className="SearchBar">
-         <input type="text" autocomplete="off" id="search-box"/>
-      </div>
-    );
-  }
-}*/
 
 export default FoodTypes;

@@ -38,8 +38,8 @@ class App extends Component {
     return (
       <Provider helper={helper}>
           <div style={searchContainerStyle}>
-              <div>
-                <SearchBox style={searchBarStyles}/>
+              <div style={searchBarStyles}>
+                <SearchBox />
               </div>
               <div style={main}>
                 <Col xs={2} md={3} style={sidebar}>
@@ -74,7 +74,8 @@ const sidebar = {
   height: 'inherit',
   overflow: 'scroll',
   borderRight: '1px solid',
-  borderColor: '#E7E7E7'
+  borderColor: '#E7E7E7',
+  paddingTop: 10
 }
 
 const mainContent = {
@@ -83,9 +84,13 @@ const mainContent = {
 }
 
 const searchBarStyles = {
+  clear: 'both',
   display: 'block',
+  backgroundColor: '#3270d3',
+  height: '70px',
   width: '100%',
-  border: '0'
+  height: 'auto',
+  position: 'relative'
 }
 
 

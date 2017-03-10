@@ -15,8 +15,7 @@ const getHighlighted = s => ({__html: s});
 
 
 const imageStyle = {
-  width: '100%',
-  height: '90%'
+  width: '100%'
 }
 
 const ratingStyle = {

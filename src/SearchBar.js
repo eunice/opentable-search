@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import reactAlgoliaSearchHelper, { Provider, connect } from 'react-algoliasearch-helper';
 
+import { Col, Grid, Row, Image, FormControl } from 'react-bootstrap';
+
 const searchContainerStyle = {
-  backgroundColor: 'blue'
+  position: 'relative',
+  padding: 15,
+  margin: '0 auto',
+  width: 'auto', 
+  height: 'auto'
 }
 
 const searchStyle = {
   width: '100%',
-  padding: '0.5em 1em'
+  borderRadius: '2px'
 }
 
 const SearchBox = connect()(
   ({helper}) =>
   <div style={searchContainerStyle}>
-    <input
+    <FormControl
       style={searchStyle}
       placeholder="Search for Restaurants by Name, Cuisine, Location"
       onChange={e => helper.setQuery(e.target.value).search()}
