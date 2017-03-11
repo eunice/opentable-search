@@ -1,58 +1,59 @@
 import React, { Component } from 'react';
 import reactAlgoliaSearchHelper, { Provider, connect } from 'react-algoliasearch-helper';
 
-const Rating = ({
-  name,
-  count,
-  isRefined,
-  handleClick
-}) =>
-<li>
-  <label>
-    <input
-      type="checkbox"
-      checked={isRefined}
-      value={name}
-      onChange={handleClick}
-    />
-    {name}{' '}
-    <span className="badge">{count}</span>
-  </label>
-</li>;
+const headingStyle = {
+  fontSize: '110%'
+}
+
+const listStyle = {
+  listStyle: 'none',
+  paddingLeft: '10'
+}
+
+const starStyle = {
+  width: '13%',
+  height: '13%'
+}
+
+const StarFilled = () => <span><img style={starStyle} src="././images/stars-plain.png" /></span>;
+
+const StarEmpty = () => <span><img style={starStyle} src="././images/star-empty.png" /></span>;
+
+const Rating = ({rating, handleClick}) => {
+  let stars = []
+  for (let i = 0; i < rating; i++){
+    stars.push(<StarFilled/>)
+  }
+  while (stars.length < 5) {
+    stars.push(<StarEmpty />)
+  }
+  return (
+    <li onClick={handleClick}>{stars}</li>
+  );
+}
 
 
-// connect(state: {}))
 const Ratings = connect(
   state => ({
-    ratings: state.searchResults &&
-      state.searchResults.getFacetValues('stars_count', {sortBy: ['count:desc', 'selected']}) ||
-      []
   })
 )(
   ({ratings, helper}) => {
-    console.log(ratings)
-return (<div><div>Rating</div>
-  <ul className="ratings">
-  {ratings.map(
-    rating =>
-      <Rating
-        key={rating.name}
-        {...rating}
-        handleClick={e => helper.toggleRefine('stars_count', rating.name).search()}
-      />
+    console.log('r',ratings) //clean this up
+    var ratings = []
+    for (let i = 0; i <= 5; i++) {
+      ratings.push(
+      <Rating rating={i} handleClick={e => {helper.removeNumericRefinement('stars_count').addNumericRefinement('stars_count', '<=', i+0.5).addNumericRefinement('stars_count', '>', i-0.5).search()}}/>
+      );
+    };
+  return (
+    <div>
+      <div style={headingStyle}>Rating</div>
+      <ul className="ratings" style={listStyle}>
+        {ratings}
+      </ul>
+    </div>
   )}
-</ul></div>)
-  }
 );
 
-/*class SearchBar extends Component {
-  render() {
-    return (
-      <div className="SearchBar">
-         <input type="text" autocomplete="off" id="search-box"/>
-      </div>
-    );
-  }
-}*/
 
 export default Ratings;

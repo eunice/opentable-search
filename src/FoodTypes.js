@@ -4,42 +4,61 @@ import reactAlgoliaSearchHelper, { Provider, connect } from 'react-algoliasearch
 import { Col, Grid, Row, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 
+const headingStyle = {
+  fontSize: '110%'
+}
+
 const listStyle = {
   listStyle: 'none',
-  paddingLeft: 0
+  paddingLeft: '10'
+}
+
+const foodTypeListStyle = {
+  clear: 'both', 
+  backgroundColor: 'blue'
+}
+
+const foodTypeStyle = {
+  float: 'left',
+  margin: '0 0 0px',
+  color: 'black'
 }
 
 const countStyle = {
-  paddingRight: 0
+  float: 'right',
+  margin: '0 0 1px'
 }
 
 const FoodType = ({
   name,
-  count
+  count,
   isRefined,
   handleClick
 }) =>
-<li>
+<li style={foodTypeListStyle}>
+    <p 
+      style={foodTypeStyle}
+      checked={isRefined}
+      value={name}
+      onClick={handleClick}
+    >
+      {name}{' '}
+      </p>
+    <p style={countStyle}>{count}</p>
+</li>;
+
+
+/*<li style={{clear: 'both'}}>
     <input
       type="checkbox"
       checked={isRefined}
       value={name}
       onChange={handleClick}
     />
-    {name}{' '}
-    <span style={countStyle}>{count}</span>
-</li>;
-
-// const FoodType = ({
-//   name,
-//   count,
-//   isRefined,
-//   handleClick
-// }) =>
-//   <div onClick={handleClick}>
-//     {name}{' '}
-//     <span >{count}</span>
-//   </div>;
+      {name}{' '}
+      </p>
+    <p style={countStyle}>{count}</p>
+</li>;*/
 
 
 // connect(state: {}))
@@ -51,8 +70,9 @@ const FoodTypes = connect(
   })
 )(
   ({foodTypes, helper}) => {
-    console.log(foodTypes)
-return (<div><div><b>Cuisine/Food Type</b></div>
+    // console.log(foodTypes)
+    
+return (<div><div style={headingStyle}>Cuisine/Food Type</div>
   <ul className="foodTypes" style={listStyle}>
   {foodTypes.map(
     foodType =>

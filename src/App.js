@@ -27,7 +27,30 @@ const helper = algoliasearchHelper(
   }
 );
 
-// console.log(helper)
+/**
+ * ToDO:
+ * autocomplete
+ * infinite scroll (see more)
+ * show user's location --> show restaurants closer to them higher in result
+ * responsive (tablet + mobile view)
+ * 
+ * basic alignment / spacing (sidebar
+ * image smaller 
+ * search bar
+ * make cuisine list scrollable
+ * hover --> cuisine list + payment payment_options
+ * stars --> filled according to Ratings
+ * 
+ * hits ordered by rating
+ * RERUN SCRIPT --> Diners Club and Carte Blanche are Discover cards
+ * Open up "opentable page" when clicked
+ * 
+ * front end tests 
+ * documentation for Project
+ */
+
+
+console.log(helper)
 const main = {
   height: 'inherit'
 }
@@ -37,22 +60,24 @@ class App extends Component {
   render() {
     return (
       <Provider helper={helper}>
-          <div style={searchContainerStyle}>
-              <div style={searchBarStyles}>
-                <SearchBox />
-              </div>
-              <div style={main}>
-                <Col xs={2} md={3} style={sidebar}>
-                  <FoodTypes />
-                  <Ratings />
-                  <PaymentOptions />
-                </Col>
-                <Col xs={10} md={9} style={mainContent}>
-                  <Hits />
-                  <Pagination />
-                </Col>
-              </div>
-          </div>
+            <div style={searchContainerStyle}>
+                <div style={searchBarStyles}>
+                  <SearchBox />
+                </div>
+                <div style={main}>
+                  <Col xs={2} md={3} style={sidebar}>
+                    <FoodTypes />
+                    <br/>
+                    <Ratings />
+                    <br/>
+                    <PaymentOptions />
+                  </Col>
+                  <Col xs={10} md={9} style={mainContent}>
+                    <Hits />
+                    <Pagination />
+                  </Col>
+                </div>
+            </div>
       </Provider>
     );
   }
@@ -67,7 +92,8 @@ const searchContainerStyle = {
   bottom: '0',
   left: '0',
   right: '0',
-  margin: 'auto'
+  margin: 'auto',
+  backgroundColor: 'white'
 }
 
 const sidebar = {

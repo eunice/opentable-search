@@ -30,7 +30,7 @@ const PaymentOptions = connect(
   })
 )(
   ({paymentOptions, helper}) => {
-    console.log(paymentOptions)
+    // console.log(paymentOptions)
 return (<ul className="categories">
   {paymentOptions.map(
     paymentOption =>

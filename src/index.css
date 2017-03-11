@@ -2,6 +2,9 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-repeat: repeat;
+  background-image: url("background_@2X.png");
+  font-family: 'Open Sans', sans-serif;
 }
 
 em {
