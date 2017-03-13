@@ -1,25 +1,16 @@
 import React, { Component } from 'react';
 import reactAlgoliaSearchHelper, { Provider, connect } from 'react-algoliasearch-helper';
 
-const PaymentOption = ({
-  name,
-  count,
-  isRefined,
-  handleClick
-}) =>
-<li>
-  <label>
-    <input
-      type="checkbox"
-      checked={isRefined}
-      value={name}
-      onChange={handleClick}
-    />
-    {name}{' '}
-    <span className="badge">{count}</span>
-  </label>
-</li>;
-
+const PaymentOption = ({name, count, isRefined, handleClick}) =>
+<li className={"FilterMenu__list-item" + (isRefined ? '--selected' : '')}
+  onClick={handleClick}>
+    <span className={"FilterMenu__list-name" + (isRefined ? '--selected' : '')}>
+      {name}{' '}
+    </span>
+    <span className={"FilterMenu__list-result-count" + (isRefined ? '--selected' : '')}>
+      {count}
+    </span>
+</li>
 
 // connect(state: {}))
 const PaymentOptions = connect(
@@ -30,8 +21,10 @@ const PaymentOptions = connect(
   })
 )(
   ({paymentOptions, helper}) => {
-    // console.log(paymentOptions)
-return (<ul className="categories">
+    console.log('p',paymentOptions)
+return (<div className='FilterMenu'>
+  <div className='FilterMenu__heading'>Payment Options</div>
+  <ul className="FilterMenu__payment-options-container ">
   {paymentOptions.map(
     paymentOption =>
       <PaymentOption
@@ -40,7 +33,7 @@ return (<ul className="categories">
         handleClick={e => helper.toggleRefine('payment_options', paymentOption.name).search()}
       />
   )}
-</ul>)
+</ul></div>)
   }
 );
 

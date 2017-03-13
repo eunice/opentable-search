@@ -1,114 +1,100 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import reactAlgoliaSearchHelper, { Provider, connect } from 'react-algoliasearch-helper';
 
-import { Col, Grid, Row, Image } from 'react-bootstrap';
+import Hit from './Hit.js'
+import ShowMore from './ShowMore.js'
 
-const getHighlighted = s => ({__html: s});
+class Results extends Component {
+  constructor() {
+    super();
 
-// const Hit = ({
-//   _highlightResult: {
-//     name: {
-//       value: name
-//     }
-//   }
-// }) => <div dangerouslySetInnerHTML={getHighlighted(name)}/>;
+    this.state = {
+      previousHits: []
+    }
 
-const nameStyle = {
-  fontSize: '110%',
-  color: 'black'
-}
-
-const imageStyle = {
-  width: '100%'
-}
-
-const ratingStyle = {
-  color: '#FFC08C'
-}
-
-const starStyle = {
-  width: '3%',
-  height: '3%'
-}
-
-const performanceContainerStyle = {
-  margin: '15px'
-}
-
-const resultStyle = {
-  fontSize: '120%',
-  color: 'black'
-}
-
-const processTimeStyle = {
-  fontSize: '100%',
-  color: '#AAAAAA'
-}
-
-const restaurantContainerStyle = {
-  margin: '5px'
-}
-
-const StarFilled = () => <span><img style={starStyle} src="././images/stars-plain.png" /></span>;
-
-const StarEmpty = () => <span><img style={starStyle} src="././images/star-empty.png" /></span>;
-
-const Hit = ({ name, neighborhood, food_type, reviews_count, stars_count, price_range, image_url}) => {
-      let stars = [];
-      for (let i = 0; i < stars_count; ++i){
-        stars.push(<StarFilled/>)
-      }
-      while (stars.length < 5) {
-        stars.push(<StarEmpty />)
-      }
-      return (<Grid>
-        <Row className='restaurantContainer' style={restaurantContainerStyle}>
-          <Col xs={3} md={2}>
-            <Image style={imageStyle} className='restaurantImage' src={image_url} rounded/>
-          </Col>
-          <Col xs={9} md={10}>
-            <p className='restaurantName' style={nameStyle}>{name}</p>
-            <p className='restaurantRating'>
-              <span style={ratingStyle}>{stars_count}</span>
-              <span>{stars}</span>
-              <span>({reviews_count} reviews)</span>
-            </p>
-            <p className='restaurantDetail'>
-              <span>{food_type} | </span>
-              <span>{neighborhood} | </span>
-              <span className='restaurantPriceRange'>{price_range} </span>
-            </p>
-          </Col>
-        </Row>
-      </Grid>)
-};
-
-
-/*const Results = ({results}) => results &&
-<div className="results">
-  {results.hits.map(
-    hit => <Hit key={hit.objectID} {...hit} />)
+    this.onLoadMoreClick = this.onLoadMoreClick.bind(this);
   }
-</div>;*/
 
-const Results = ({results}) => {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentPage === 0) {
+      // The search query was modified and the helper reset the page to 0.
+      this.setState({
+        previousHits: []
+      });
+    } else if (nextProps.currentPage !== this.props.currentPage) {
+      // We've received a new page of hits.
+      this.setState({
+        previousHits: this.state.previousHits.concat(this.props.currentHits)
+      });
+    }
+  }
+
+  onLoadMoreClick() {
+    this.props.helper.setQueryParameter('hitsPerPage', 20)
+    .setPage(this.props.currentPage + 1).search()
+
+  }
+
+  render() {
+    // If a search is occuring, it means that the `currentHits` prop is not up
+    // to date and has already been persisted in state.
+    const currentHits = this.props.searching ? [] : this.props.currentHits;
+    const hits = this.state.previousHits.concat(currentHits);
+    console.log('cccc',this.props.currentHits)
+    const hitList = []
+    if (this.props.currentHits && this.props.currentHits.length > 0 ) {
+      const hit = hits.map((hit) => {
+              console.log(this.props.currentHits)
+              return <Hit key={hit.objectID} {...hit} />
+          })
+      const page = <ShowMore handleClick={this.onLoadMoreClick} />;
+      hitList.push(hit,page);
+    }
+
+    return this.props.currentHits && (
+      <div className="Hits">
+        <div className="Hits__performance-container">
+          <span className="Hits__results-number">{this.props.result.nbHits} results found </span>
+          <span className="Hits__processing-time">in {this.props.result.processingTimeMS /1000 } seconds</span>
+          <hr className="Hits__divider"/>
+        </div>
+        {hitList}
+        
+      </div>
+    );
+  }
+}
+
+Results.PropTypes = {
+  helper: PropTypes.object.isRequired,
+  searching: PropTypes.bool.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  currentHits: PropTypes.array
+}
+
+/*const Results = ({results}) => {
   console.log('hhhh', results)
   return results &&
   <div className="results">
-    <Row style={performanceContainerStyle}>
+    <div style={performanceContainerStyle}>
       <span style={resultStyle}>{results.nbHits} results found </span>
       <span style={processTimeStyle}>in {results.processingTimeMS /1000 } seconds</span>
-    </Row>
+    </div>
     {results.hits.map((hit) => {
           console.log(results)
           return <Hit key={hit.objectID} {...hit} />
       })
     }
+    <Pagination />
   </div>
-};
+};*/
 
-const Hits = connect(
-  state => ({results: state.searchResults})
-)(Results);
+const Hits = connect(state => ({
+  searching: state.searching,
+  currentPage: state.searchParameters.page,
+  result: state.searchResults,
+  currentHits: state.searchResults && state.searchResults.hits
+
+}))(Results);
 
 export default Hits;

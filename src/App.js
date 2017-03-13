@@ -3,16 +3,14 @@ import algoliasearch from 'algoliasearch';
 import algoliasearchHelper from 'algoliasearch-helper';
 import reactAlgoliaSearchHelper, { Provider, connect } from 'react-algoliasearch-helper';
 
-import { Col, Grid, Row } from 'react-bootstrap';
-
 // import logo from './logo.svg';
-import './App.css';
+// import './App.css';
 import SearchBox from './SearchBar.js'
-import Pagination from './Pagination.js'
 import Hits from './Hits.js'
 import FoodTypes from './FoodTypes.js'
 import Ratings from './Ratings.js'
 import PaymentOptions from './PaymentOptions.js'
+import DropdownFilter from './DropdownFilter.js'
 
 const appId = '8NX2UY9BJ3';
 const apiKey = 'f1d54a8ba27d36e24e4f49a541f670c8';
@@ -22,101 +20,87 @@ const client = algoliasearch(appId, apiKey);
 const helper = algoliasearchHelper(
   client, indexName, {
     disjunctiveFacets: ['food_type', 'payment_options', 'stars_count'],
-    hitsPerPage: 10,
-    maxValuesPerFacet: 10
+    hitsPerPage: 3,
+    maxValuesPerFacet: 100
   }
 );
 
 /**
  * ToDO:
- * autocomplete
- * infinite scroll (see more)
  * show user's location --> show restaurants closer to them higher in result
- * responsive (tablet + mobile view)
+ * custom sorting function!!!
+ * USE GULP!! 
+ *
+ * mobile - autocomplete + Search? 
+ * Don't "SHOW MORE" when there's no more to show
+ * Fix "SHOW MORE" main content height (when responsive)
+ * When mobile responsive --> search bar placeholder content should '....'
  * 
- * basic alignment / spacing (sidebar
- * image smaller 
+ * when select stars, grey out background!
+ * stars --> filled according to Ratings
+ * Open up "opentable page" when clicked
+ * hits ordered by rating
+ * 
+ * filter -- city / dining style / price_range
+ * show restaurant details (phone, address, map, price, image, reserve)
+ * 
+ * make 'show more' button not appear before results load
  * search bar
+ * 
+ * documentation for Project
+ * don't hardcode API config!!
+
+Follow up later:
+ * RERUN SCRIPT --> Diners Club and Carte Blanche are Discover cards
+ * Check with Algolia if JCB + Pay with OT
+ * infinite scroll (see more)
  * make cuisine list scrollable
  * hover --> cuisine list + payment payment_options
- * stars --> filled according to Ratings
+ * basic alignment / spacing (sidebar
+ * responsive (tablet + mobile view)
  * 
- * hits ordered by rating
- * RERUN SCRIPT --> Diners Club and Carte Blanche are Discover cards
- * Open up "opentable page" when clicked
- * 
- * front end tests 
- * documentation for Project
+Future Improvements
+ * get additional elements (not get next page)
  */
 
+navigator.geolocation.getCurrentPosition(function(position) {
+  console.log('pos',position.coords.latitude, position.coords.longitude);
+});
+// ()
+// console.log(helper)
 
-console.log(helper)
-const main = {
-  height: 'inherit'
-}
 helper.search();
 
 class App extends Component {
   render() {
     return (
       <Provider helper={helper}>
-            <div style={searchContainerStyle}>
-                <div style={searchBarStyles}>
+            <div className='App__wrapper'>
+                <div className='App__search-bar-container'>
                   <SearchBox />
                 </div>
-                <div style={main}>
-                  <Col xs={2} md={3} style={sidebar}>
+                <div className='App__main-container'>
+                  <div className='App__side-bar'>
                     <FoodTypes />
-                    <br/>
                     <Ratings />
-                    <br/>
                     <PaymentOptions />
-                  </Col>
-                  <Col xs={10} md={9} style={mainContent}>
+                  </div>
+
+                  <div className='App__dropdown-filter'>
+                    <DropdownFilter />
+                  </div>
+
+                  <div className='App__main-content' >
                     <Hits />
-                    <Pagination />
-                  </Col>
+                  </div>
+
+                  
                 </div>
+
             </div>
       </Provider>
     );
   }
 }
-
-const searchContainerStyle = {
-  width: '80%',
-  height: '580px',
-  overflow: 'hidden',
-  position: 'absolute',
-  top: '0',
-  bottom: '0',
-  left: '0',
-  right: '0',
-  margin: 'auto',
-  backgroundColor: 'white'
-}
-
-const sidebar = {
-  height: 'inherit',
-  overflow: 'scroll',
-  borderRight: '1px solid',
-  borderColor: '#E7E7E7',
-  paddingTop: 10
-}
-
-const mainContent = {
-  height: 'inherit',
-  overflow: 'scroll'
-}
-
-const searchBarStyles = {
-  clear: 'both',
-  display: 'block',
-  backgroundColor: '#1C688E',
-  width: '100%',
-  height: 'auto',
-  position: 'relative'
-}
-
 
 export default App;

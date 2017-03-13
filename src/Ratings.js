@@ -1,18 +1,9 @@
 import React, { Component } from 'react';
 import reactAlgoliaSearchHelper, { Provider, connect } from 'react-algoliasearch-helper';
 
-const headingStyle = {
-  fontSize: '110%'
-}
-
-const listStyle = {
-  listStyle: 'none',
-  paddingLeft: '10'
-}
-
 const starStyle = {
-  width: '13%',
-  height: '13%'
+  width: '10%',
+  height: '10%'
 }
 
 const StarFilled = () => <span><img style={starStyle} src="././images/stars-plain.png" /></span>;
@@ -46,9 +37,9 @@ const Ratings = connect(
       );
     };
   return (
-    <div>
-      <div style={headingStyle}>Rating</div>
-      <ul className="ratings" style={listStyle}>
+    <div className='FilterMenu'>
+      <div className='FilterMenu__heading'>Rating</div>
+      <ul className="FilterMenu__ratings-container" >
         {ratings}
       </ul>
     </div>
