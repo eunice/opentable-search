@@ -37,7 +37,6 @@ class Results extends Component {
     // If a search is occuring, it means that the `currentHits` prop is not up to date and has already been persisted in state.
     const currentHits = this.props.searching ? [] : this.props.currentHits;
     const hits = this.state.previousHits.concat(currentHits);
-    console.log('cccc',this.props.currentHits)
     const hitList = [];
     if (this.props.currentHits && this.props.currentHits.length > 0 ) {
       const hit = hits.map((hit) => {

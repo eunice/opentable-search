@@ -9,12 +9,15 @@ const starStyle = {
   height: '4%'
 }
 
-const Hit = ({ name, neighborhood, food_type, reviews_count, stars_count, price_range, image_url}) => {
+const Hit = ({ name, neighborhood, food_type, reviews_count, stars_count, price_range, image_url, reserve_url}) => {
       
       return (
-        <div className='Hits__restaurant-container'>
+        <div className='Hits__restaurant-container' >
+          
           <div className='Hit__restaurant-image-container'>
+            <a href={reserve_url}>
             <img className='Hit__restaurant-image' src={image_url}/>
+            </a>
           </div>
 
           <div className="Hit__restaurant-info-container">
@@ -30,6 +33,7 @@ const Hit = ({ name, neighborhood, food_type, reviews_count, stars_count, price_
               <span className='Hit__restaurant-price-range'>{price_range} </span>
             </p>
           </div>
+          
         </div>)
 };
 
