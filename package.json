@@ -2,6 +2,7 @@
   "name": "opentable-search",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://eunice.github.io/opentable-search",
   "dependencies": {
     "algoliasearch": "^3.21.1",
     "algoliasearch-helper": "^2.18.1",
@@ -11,12 +12,15 @@
     "react-dom": "^15.4.2"
   },
   "devDependencies": {
+    "gh-pages": "^0.12.0",
     "react-scripts": "0.9.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   }
 }

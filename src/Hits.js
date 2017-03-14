@@ -34,12 +34,11 @@ class Results extends Component {
   }
 
   render() {
-    // If a search is occuring, it means that the `currentHits` prop is not up
-    // to date and has already been persisted in state.
+    // If a search is occuring, it means that the `currentHits` prop is not up to date and has already been persisted in state.
     const currentHits = this.props.searching ? [] : this.props.currentHits;
     const hits = this.state.previousHits.concat(currentHits);
     console.log('cccc',this.props.currentHits)
-    const hitList = []
+    const hitList = [];
     if (this.props.currentHits && this.props.currentHits.length > 0 ) {
       const hit = hits.map((hit) => {
               return <Hit key={hit.objectID} {...hit} />
@@ -68,7 +67,6 @@ Results.PropTypes = {
   currentHits: PropTypes.array
 }
 
-// map state to props
 const Hits = connect(state => ({
   searching: state.searching,
   currentPage: state.searchParameters.page,

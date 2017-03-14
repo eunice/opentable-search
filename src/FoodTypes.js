@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import reactAlgoliaSearchHelper, { Provider, connect } from 'react-algoliasearch-helper';
+import React, { PropTypes, Component } from 'react';
+import reactAlgoliaSearchHelper, { connect } from 'react-algoliasearch-helper';
+import FoodType from './FoodType.js'
 
 class FoodTypes extends Component {
   constructor(props){
@@ -50,49 +51,12 @@ class FoodTypes extends Component {
   }
 }
 
-
-const FoodType = ({name, count, isRefined, classMenu, handleClick}) => {
-  return (
-    <li className={ classMenu + "__list-item" + (isRefined ? '--selected' : '')}
-      onClick={handleClick}>
-        <span className={ classMenu + "__list-name" + (isRefined ? '--selected' : '')}>
-          {name}{' '}
-        </span>
-        <span className={ classMenu + "__list-result-count" + (isRefined ? '--selected' : '')}>
-          {count}
-        </span>
-    </li>
-  );
+FoodTypes.PropTypes = {
+  helper: PropTypes.object.isRequired,
+  parent: PropTypes.string.isRequired,
+  foodTypes: PropTypes.array
 }
 
-/*const FoodTypes = ({foodTypes, helper, parent}) => {
-  let classMenu = parent == 'sidebar' ? 'FilterMenu' : 'DropdownMenu';
-
-  return (
-    <div className={classMenu}>
-        <div 
-          className={classMenu + '__heading'}
-          onClick={}
-          >
-          Cuisine/Food Type
-        </div>
-        <ul className={classMenu + "__list-container"}>
-          {foodTypes.map(
-            foodType =>
-              <FoodType
-                key={foodType.name}
-                classMenu={classMenu}
-                {...foodType}
-                handleClick={e => helper.toggleRefine('food_type', foodType.name).search()}
-              />
-          )}
-        </ul>
-    </div>
-  );
-}*/
-
-//Func = ({a}) =>
-// connect(state: {a: b}))(Func)
 const ConnectedFoodTypes = connect(
   state => ({
     foodTypes: state.searchResults &&

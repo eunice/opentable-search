@@ -8,7 +8,6 @@ const ShowMore = ({page, nbPages, helper, handleClick}) => {
     </button>
   </div>;
 }
-  
 
 const ConnectedShowMore = connect(
   ({searchResults}) => (

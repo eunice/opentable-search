@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 
-import StarEmpty from './StarEmpty.js'
-import StarFilled from './Starfilled.js'
+import Stars from './Stars.js'
 
 const getHighlighted = s => ({__html: s});
 
@@ -11,13 +10,6 @@ const starStyle = {
 }
 
 const Hit = ({ name, neighborhood, food_type, reviews_count, stars_count, price_range, image_url}) => {
-      let stars = [];
-      for (let i = 0; i < stars_count; ++i){
-        stars.push(<StarFilled style={starStyle} />)
-      }
-      while (stars.length < 5) {
-        stars.push(<StarEmpty style={starStyle} />)
-      }
       
       return (
         <div className='Hits__restaurant-container'>
@@ -29,7 +21,7 @@ const Hit = ({ name, neighborhood, food_type, reviews_count, stars_count, price_
             <p className='Hit__restaurant-name'>{name}</p>
             <p className='Hit__restaurant-rating-container'>
               <span className='Hit__restaurant-star-count'>{stars_count}</span>
-              <span className='Hit__restaurant-star-container'>{stars}</span>
+              <span className='Hit__restaurant-star-container'><Stars rating={stars_count}/></span>
               <span className='Hit__restaurant-review-count'>({reviews_count} reviews)</span>
             </p>
             <p className='Hit__restaurant-detail-container'>

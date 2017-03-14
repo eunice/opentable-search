@@ -1,16 +1,6 @@
-import React, { Component } from 'react';
-import reactAlgoliaSearchHelper, { Provider, connect } from 'react-algoliasearch-helper';
-
-const PaymentOption = ({name, count, isRefined, classMenu, handleClick}) =>
-<li className={classMenu + "__list-item" + (isRefined ? '--selected' : '')}
-  onClick={handleClick}>
-    <span className={classMenu + "__list-name" + (isRefined ? '--selected' : '')}>
-      {name}{' '}
-    </span>
-    <span className={classMenu + "__list-result-count" + (isRefined ? '--selected' : '')}>
-      {count}
-    </span>
-</li>
+import React, { PropTypes, Component } from 'react';
+import reactAlgoliaSearchHelper, { connect } from 'react-algoliasearch-helper';
+import PaymentOption from './PaymentOption.js'
 
 class PaymentOptions extends Component {
   constructor(props){
@@ -61,7 +51,12 @@ class PaymentOptions extends Component {
   }
 }
 
-// connect(state: {}))
+PaymentOptions.PropTypes = {
+  helper: PropTypes.object.isRequired,
+  parent: PropTypes.string.isRequired,
+  paymentOptions: PropTypes.array
+}
+
 const ConnectedPaymentOptions = connect(
   state => ({
     paymentOptions: state.searchResults &&

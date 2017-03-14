@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
 import reactAlgoliaSearchHelper, { Provider, connect, AgAutocomplete } from 'react-algoliasearch-helper';
-
 import { FormControl } from 'react-bootstrap';
 
 class SearchBox extends Component {
   constructor() {
     super();
-    
-    this.state = {
-      value: '',
-      matches: []
-    }
-
     this.handleChange = this.handleChange.bind(this);
-    // this.handleKeyDown = this.handleKeyDown.bind(this);
-    // this.handleSelect = this.handleSelect.bind(this);
   }
 
   handleChange(e) {
@@ -42,9 +33,6 @@ class SearchBox extends Component {
     );
   }
 }
-{/*<ul className='panel'>
-          {hitList}
-        </ul>*/}
 
 const ConnectedSearchBox = connect(state => ({
   searching: state.searching,
