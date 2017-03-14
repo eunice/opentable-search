@@ -18,12 +18,8 @@ with open('restaurants_info.csv', 'rb') as info_file:
     reader = csv.reader(info_file)
     next(reader, None)  # skip the headers
     for row in reader:
-        # print row
         column = ''.join(row).split(';')
-        # print column
-        # print column[2]
         objectID = str(column[0])
-        # print objectID
         restaurant = hashmap[objectID]
 
         #add additional info from csv file
@@ -36,14 +32,12 @@ with open('restaurants_info.csv', 'rb') as info_file:
         restaurant['dining_style'] = column[7]
         options = restaurant['payment_options']
 
-
         #clean up payment options
         if ('Diners Club' in options or 'Carte Blanche' in options or 'JCB' in options) and ('Discover' not in options):
             restaurant['payment_options'].append('Discover')
         restaurant['payment_options'] = [opt for opt in options if opt not in ('Diners Club', 'Carte Blanche', 'JCB', 'Pay with OpenTable')]
         print restaurant
         result.append(restaurant)
-        # print restaurant
 
 # output file
 print result
