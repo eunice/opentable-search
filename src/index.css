@@ -8,7 +8,7 @@ body {
 }
 
 em {
-  background-color: yellow
+  background-color: yellow !important;
 }
 
 p {

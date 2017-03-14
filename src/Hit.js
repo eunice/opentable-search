@@ -1,13 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-
 import Stars from './Stars.js'
-
-const getHighlighted = s => ({__html: s});
-
-const starStyle = {
-  width: '4%',
-  height: '4%'
-}
 
 const Hit = ({ name, neighborhood, food_type, reviews_count, stars_count, price_range, image_url, reserve_url}) => {
       
