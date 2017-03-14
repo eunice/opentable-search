@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import reactAlgoliaSearchHelper, { connect } from 'react-algoliasearch-helper';
 
-const ShowMore = connect(
+const ShowMore = ({page, nbPages, helper, handleClick}) => {
+  return <div className={"ShowMore__container" + (page + 1 >= nbPages ? '--hide': '')}>
+    <button className="ShowMore__button" onClick={handleClick}>
+      Show More
+    </button>
+  </div>;
+}
+  
+
+const ConnectedShowMore = connect(
   ({searchResults}) => (
     searchResults === null ?
       {page: 0, nbPages: 0} :
       {page: searchResults.page, nbPages: searchResults.nbPages}
   )
-)(
-  ({page, nbPages, helper, handleClick}) =>
-  <div className="ShowMore__container">
-    <button className="ShowMore__button" onClick={handleClick}>
-      Show More
-    </button>
-  </div>
-);
+)(ShowMore);
 
-export default ShowMore;
+export default ConnectedShowMore;

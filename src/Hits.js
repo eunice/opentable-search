@@ -30,9 +30,7 @@ class Results extends Component {
   }
 
   onLoadMoreClick() {
-    this.props.helper.setQueryParameter('hitsPerPage', 20)
-    .setPage(this.props.currentPage + 1).search()
-
+    this.props.helper.setQueryParameter('hitsPerPage', 20).setPage(this.props.currentPage + 1).search();
   }
 
   render() {
@@ -44,9 +42,8 @@ class Results extends Component {
     const hitList = []
     if (this.props.currentHits && this.props.currentHits.length > 0 ) {
       const hit = hits.map((hit) => {
-              console.log(this.props.currentHits)
               return <Hit key={hit.objectID} {...hit} />
-          })
+          });
       const page = <ShowMore handleClick={this.onLoadMoreClick} />;
       hitList.push(hit,page);
     }
@@ -59,7 +56,6 @@ class Results extends Component {
           <hr className="Hits__divider"/>
         </div>
         {hitList}
-        
       </div>
     );
   }
@@ -72,29 +68,12 @@ Results.PropTypes = {
   currentHits: PropTypes.array
 }
 
-/*const Results = ({results}) => {
-  console.log('hhhh', results)
-  return results &&
-  <div className="results">
-    <div style={performanceContainerStyle}>
-      <span style={resultStyle}>{results.nbHits} results found </span>
-      <span style={processTimeStyle}>in {results.processingTimeMS /1000 } seconds</span>
-    </div>
-    {results.hits.map((hit) => {
-          console.log(results)
-          return <Hit key={hit.objectID} {...hit} />
-      })
-    }
-    <Pagination />
-  </div>
-};*/
-
+// map state to props
 const Hits = connect(state => ({
   searching: state.searching,
   currentPage: state.searchParameters.page,
   result: state.searchResults,
   currentHits: state.searchResults && state.searchResults.hits
-
 }))(Results);
 
 export default Hits;
